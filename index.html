@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div id="container">Loading…</div>
+<button onclick="doFetch()">Fetch</button>
+<br/>
+<button onclick="doXHR()">XHR</button>
+<script>
+const container = document.getElementById('container');
+
+const doFetch = () => {
+  fetch('https://xkcd.com/info.0.json')
+    .then(res => res.json())
+    .then(data => {
+      container.innerHTML = "data: " + data;
+    })
+    .catch(err => {
+      container.innerHTML = "err: " + data;
+    });
+};
+
+function handleResponse() {
+  container.innerHTML = 'response: ' + this.responseText;
+}
+
+const doXHR = () => {
+  const req = new XMLHttpRequest();
+  req.addEventListener('load', handleResponse);
+  req.open('GET', 'https://xkcd.com/info.0.json');
+  req.send();
+};
+</script>
+</body>
+</html>
